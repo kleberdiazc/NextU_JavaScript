@@ -1,6 +1,6 @@
 var calculadora ={
   pant: document.getElementById("display"),
-  pantalla :"",
+  pantalla :"0",
   operacion: "",
   firstvalor: 0,
   secondvalor:0,
@@ -75,11 +75,14 @@ var calculadora ={
     document.getElementById("sign").addEventListener("click", function() {calculadora.cambiarsigno();});
     document.getElementById("punto").addEventListener("click", function() {calculadora.puntodecimal();});
     document.getElementById("igual").addEventListener("click", function() {calculadora.resultado();});
+    document.getElementById("mas").addEventListener("click", function() {calculadora.operacion_matematica("+");});
+    document.getElementById("menos").addEventListener("click", function() {calculadora.operacion_matematica("-");});
+    document.getElementById("por").addEventListener("click", function() {calculadora.operacion_matematica("*");});
     document.getElementById("raiz").addEventListener("click", function() {calculadora.operacion_matematica("raiz");});
     document.getElementById("dividido").addEventListener("click", function() {calculadora.operacion_matematica("/");});
-    document.getElementById("por").addEventListener("click", function() {calculadora.operacion_matematica("*");});
-    document.getElementById("menos").addEventListener("click", function() {calculadora.operacion_matematica("-");});
-    document.getElementById("mas").addEventListener("click", function() {calculadora.operacion_matematica("+");});
+
+
+
   },
 
   limpiar:function () {
@@ -89,6 +92,7 @@ var calculadora ={
     this.secondvalor = 0;
     this.thirdvalor = 0;
     this.result = 0;
+    this.Operación = "";
     this.tcligual  = false
     this.refrescar();
   },
@@ -122,7 +126,7 @@ var calculadora ={
   },
 
   numeroingresado:function (numero) {
-    if (this.pantalla.length<8) {
+    if (this.pantalla.length < 8) {
       if (this.pantalla=="0") {
         this.pantalla = "";
         this.pantalla = this.pantalla + numero;
@@ -136,7 +140,7 @@ var calculadora ={
   },
 
   operacion_matematica: function (oper) {
-    this.primerValor = parseFloat(this.pantalla);
+    this.firstvalor = parseFloat(this.pantalla);
 		this.pantalla = "";
 		this.operacion = oper;
 		this.tcligual = false;
@@ -149,7 +153,7 @@ var calculadora ={
       this.thirdvalor = this.secondvalor;
       this.realizarfuncion(this.firstvalor,this.secondvalor,this.operacion);
     }else {
-      this.realizarfuncion(this.firstvalor,this.secondvalor,this.operacion);
+      this.realizarfuncion(this.firstvalor,this.thirdvalor,this.operacion);
     }
     this.firstvalor = this.result;
     this.pantalla="";
